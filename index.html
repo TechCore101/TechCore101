@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Logo Favicon -->
+    <link rel="icon" href="icon-Tech1.png" type="image/png">
+    <title>บริการพัฒนาเว็บแอปพลิเคชัน | TechCore </title>
+    <meta name="description" content="บริการพัฒนาเว็บแอปพลิเคชันระดับมืออาชีพ เชี่ยวชาญด้านระบบที่รองรับการขยายตัว ประสิทธิภาพสูง การเชื่อมต่อ API แบบกำหนดเอง และการออกแบบฐานข้อมูล">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Use Prompt for beautiful Thai typography and Inter as fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide via unpkg for lightweight dynamic rendering) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#fcd34d', // Light Gold
+                            500: '#fbbf24', // Primary Gold
+                            600: '#f59e0b', // Darker Gold (Amber)
+                            700: '#d97706', // Deep Gold
+                        },
+                        dark: {
+                            700: '#334155', // Slate 700
+                            800: '#1e293b', // Slate 800
+                            900: '#0f172a', // Slate 900
+                            950: '#020617', // Slate 950
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white relative min-h-screen flex flex-col">
+
+    <!-- Ambient Background Blobs -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="fixed top-0 -left-4 w-72 h-72 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div class="fixed top-0 -right-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        <div class="fixed -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/5 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2">
+                    <i data-lucide="terminal-square" class="w-8 h-8 text-brand-500"></i>
+                    <span>Tech<span class="text-brand-500">Core</span></span> <span>Systems</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">บริการ</a>
+                    <a href="#portfolio" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">ผลงานของเรา</a>
+                    <a href="#techstack" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">เทคโนโลยีที่ใช้</a>
+                    <a href="#workflow" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">ขั้นตอนการทำงาน</a>
+                </div>
+                <!-- Desktop CTA -->
+                <a href="#contact" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-500 transition-all shadow-lg shadow-brand-500/25 border border-brand-400/20">
+                    ติดต่อเรา
+                </a>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2 space-y-2">
+                <a href="#services" class="block py-2 text-base font-medium text-slate-300 hover:text-white">บริการ</a>
+                <a href="#portfolio" class="block py-2 text-base font-medium text-slate-300 hover:text-white">ผลงานของเรา</a>
+                <a href="#techstack" class="block py-2 text-base font-medium text-slate-300 hover:text-white">เทคโนโลยีที่ใช้</a>
+                <a href="#workflow" class="block py-2 text-base font-medium text-slate-300 hover:text-white">ขั้นตอนการทำงาน</a>
+                <a href="#contact" class="block mt-4 text-center px-6 py-3 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-500 transition-all">ติดต่อเรา</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 flex-grow">
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 hero-pattern min-h-screen flex items-center">
+            <div class="container mx-auto px-6">
+                <!-- flex-col-reverse on mobile so text is above code -->
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="w-full lg:w-1/2 space-y-6 lg:space-y-8 text-center lg:text-left mt-8 lg:mt-0">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel border border-brand-500/30 text-xs font-medium text-brand-400">
+                            <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                            เปิดรับโปรเจกต์ใหม่!
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-[1.1] sm:leading-tight">
+                            สร้างสรรค์<span class="text-gradient">เว็บแอปพลิเคชัน</span><br class="hidden lg:block">ที่ขยายตัวได้ตามธุรกิจคุณ
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            เราออกแบบและพัฒนาเว็บแอปพลิเคชันที่มีประสิทธิภาพสูง ปลอดภัย และใช้งานง่าย เพื่อยกระดับธุรกิจของคุณ ตั้งแต่ขั้นตอนแนวคิดจนถึงการนำไปใช้งานจริง
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
+                            <a href="#contact" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-brand-600 rounded-xl hover:bg-brand-500 transition-all shadow-xl shadow-brand-500/30 lg:hover:-translate-y-1">
+                                เริ่มต้นโปรเจกต์ของคุณ
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#techstack" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white glass-panel rounded-xl hover:bg-white/5 transition-all lg:hover:-translate-y-1">
+                                ดูเทคโนโลยีที่เราใช้
+                            </a>
+                        </div>
+                        <div class="pt-6 lg:pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-sm text-slate-500">
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> โค้ดสะอาด (Clean Code)</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> เทคโนโลยีทันสมัย (Modern Stack)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-1/2 relative lg:animate-float">
+                        <!-- Code Window Mockup -->
+                        <div class="glass-panel rounded-2xl overflow-hidden border border-white/10 shadow-2xl mx-auto max-w-[500px] lg:max-w-none">
+                            <div class="flex items-center gap-2 px-4 py-3 bg-dark-900/80 border-b border-white/5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                <div class="ml-4 text-xs font-mono text-slate-500">index.tsx</div>
+                            </div>
+                            <div class="p-4 sm:p-6 text-xs sm:text-sm font-mono text-slate-300 bg-dark-900/50 leading-relaxed overflow-x-auto">
+<pre><code><span class="text-pink-400">import</span> { useState, useEffect } <span class="text-pink-400">from</span> <span class="text-green-300">'react'</span>;
+<span class="text-pink-400">import</span> { createScalableApp } <span class="text-pink-400">from</span> <span class="text-green-300">'@core/engine'</span>;
+
+<span class="text-brand-400">export default function</span> <span class="text-yellow-200">App</span>() {
+  <span class="text-brand-400">const</span> [performance, setPerformance] = <span class="text-yellow-200">useState</span>(<span class="text-purple-300">100</span>);
+
+  <span class="text-yellow-200">useEffect</span>(() => {
+    <span class="text-slate-500">// เตรียมใช้งานเฟรมเวิร์กประสิทธิภาพสูง</span>
+    <span class="text-yellow-200">createScalableApp</span>({
+      frontend: <span class="text-green-300">'React + Tailwind'</span>,
+      backend: <span class="text-green-300">'Node.js API'</span>,
+      database: <span class="text-green-300">'PostgreSQL'</span>
+    });
+  }, []);
+
+  <span class="text-pink-400">return</span> (
+    &lt;<span class="text-brand-400">AppContainer</span> status={<span class="text-green-300">"optimal"</span>}&gt;
+      &lt;<span class="text-brand-400">SystemReady</span> /&gt;
+    &lt;/<span class="text-brand-400">AppContainer</span>&gt;
+  );
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 lg:py-24 relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-12 flex-row md:mb-16">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">ความเชี่ยวชาญ & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-500">บริการของเรา</span></h2>
+                    <p class="text-slate-400 text-base lg:text-lg">โซลูชันการพัฒนาที่ครอบคลุม ออกแบบมาเพื่อรับรองการเติบโตและการขยายตัวของธุรกิจคุณ</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Service 1 -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group cursor-default h-full">
+                        <div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-brand-500/10 flex items-center justify-center mb-5 lg:mb-6 group-hover:bg-brand-500/20 transition-colors">
+                            <i data-lucide="layout-template" class="w-6 h-6 lg:w-7 lg:h-7 text-brand-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 lg:mb-4">เว็บแอปพลิเคชันเฉพาะทาง</h3>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">
+                            สร้าง Front-end ที่ปรับแต่งได้ตามต้องการและ Back-end ที่มีความเสถียร เพื่อมอบประสบการณ์การใช้งานที่ยอดเยี่ยมไม่เหมือนใคร
+                        </p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group cursor-default h-full">
+                        <div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-5 lg:mb-6 group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="network" class="w-6 h-6 lg:w-7 lg:h-7 text-purple-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 lg:mb-4">เชื่อมต่อระบบ API</h3>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">
+                            สื่อสารระหว่างระบบอย่างราบรื่น เราพัฒนา RESTful และ GraphQL API ที่ปลอดภัยเพื่อเชื่อมต่อแอปของคุณเข้ากับเครื่องมือภายนอก
+                        </p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group cursor-default h-full md:col-span-2 lg:col-span-1">
+                        <div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-5 lg:mb-6 group-hover:bg-emerald-500/20 transition-colors">
+                            <i data-lucide="database" class="w-6 h-6 lg:w-7 lg:h-7 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 lg:mb-4">ออกแบบฐานข้อมูล</h3>
+                        <p class="text-slate-400 text-sm lg:text-base leading-relaxed">
+                            ออกแบบโครงสร้างข้อมูล (Schema) อย่างมีประสิทธิภาพ รองรับการเข้าถึงข้อมูลรวดเร็ว และเติบโตไปพร้อมกับผู้ใช้งาน
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-20 lg:py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-12 flex-row md:mb-16">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">โปรไฟล์ & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-500">ผลงานที่ผ่านมา</span></h2>
+                    <p class="text-slate-400 text-base lg:text-lg">ตัวอย่างความสำเร็จที่เราได้ร่วมสร้างสรรค์เพื่อตอบโจทย์และขยายขีดความสามารถขององค์กร</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Project 1 -->
+                    <div class="glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                        <div class="h-48 overflow-hidden relative">
+                            <div class="absolute inset-0 bg-brand-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Dashboard" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 lg:p-8 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-brand-500/10 text-brand-400 text-xs font-medium border border-brand-500/20">Data Analytics</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">ระบบหลังบ้าน (Admin Dashboard) สำหรับ Enterprise</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                                แดชบอร์ดวิเคราะห์ข้อมูลแบบเรียลไทม์ รองรับทราฟฟิกข้อมูลขนาดใหญ่ แสดงผลกราฟิกและสถานะขององค์กรได้อย่างแม่นยำ
+                            </p>
+                            <div class="flex gap-2 text-slate-500 text-xs mt-auto pt-4 border-t border-white/5">
+                                <span>React</span> &bull; <span>Node.js</span> &bull; <span>PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 flex flex-col">
+                        <div class="h-48 overflow-hidden relative">
+                            <div class="absolute inset-0 bg-brand-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop" alt="E-commerce" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 lg:p-8 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-brand-500/10 text-brand-400 text-xs font-medium border border-brand-500/20">E-Commerce</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">แพลตฟอร์ม B2B E-Commerce แบบครบวงจร</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                                สร้างหน้าร้านค้าออนไลน์ที่เชื่อมโยงกับระบบตัดสต็อก ระบบบัญชี และการจัดการขนส่งที่มีประสิทธิภาพ รองรับผู้ใช้งานจำนวนมาก
+                            </p>
+                            <div class="flex gap-2 text-slate-500 text-xs mt-auto pt-4 border-t border-white/5">
+                                <span>TypeScript</span> &bull; <span>PHP 8</span> &bull;  <span>C# .NET</span> &bull; <span>SQL Server</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 flex flex-col md:col-span-2 lg:col-span-1">
+                        <div class="h-48 overflow-hidden relative">
+                            <div class="absolute inset-0 bg-brand-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop" alt="API Platform" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-6 lg:p-8 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-brand-500/10 text-brand-400 text-xs font-medium border border-brand-500/20">API Ecosystem</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">ระบบ API Gateway และ Microservices</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                                ปรับโครงสร้างสถาปัตยกรรมให้กับองค์กรเป็นแบบเอกเทศ ช่วยให้ระบบสเกลได้ง่ายขึ้น ไร้ปัญหาคอขวด
+                            </p>
+                            <div class="flex gap-2 text-slate-500 text-xs mt-auto pt-4 border-t border-white/5">
+                                <span>PHP 8</span> &bull; <span>Redis</span> &bull; <span>MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Grid -->
+        <section id="techstack" class="py-20 lg:py-24 bg-dark-900/30 border-y border-white/5 relative">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-16">
+                    <div class="max-w-xl text-center md:text-left w-full">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">คลัง<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-500">เทคโนโลยี</span>ของเรา</h2>
+                        <p class="text-slate-400 text-base lg:text-lg">เราใช้เทคโนโลยีระดับแนวหน้าของอุตสาหกรรม สร้างระบบที่รวดเร็ว ล้ำสมัย และพึ่งพาได้</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Frontend -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl h-full">
+                        <h3 class="text-lg font-semibold text-white mb-5 pb-4 border-b border-white/10 flex items-center gap-3">
+                            <i data-lucide="monitor" class="w-5 h-5 text-brand-400"></i> ส่วนหน้า (Frontend)
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-brand-500/30 transition-colors">
+                                <i data-lucide="atom" class="w-8 h-8 text-[#61DAFB] mb-2"></i>
+                                <span class="text-sm font-medium">React</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-brand-500/30 transition-colors">
+                                <i data-lucide="file-code" class="w-8 h-8 text-[#3178C6] mb-2"></i>
+                                <span class="text-sm font-medium">TSX / JSX</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-brand-500/30 transition-colors">
+                                <i data-lucide="file-code-2" class="w-8 h-8 text-[#E34F26] mb-2"></i>
+                                <span class="text-sm font-medium">HTML5</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-brand-500/30 transition-colors">
+                                <i data-lucide="paintbrush" class="w-8 h-8 text-[#1572B6] mb-2"></i>
+                                <span class="text-sm font-medium">CSS3</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-brand-500/30 transition-colors col-span-2 lg:col-span-1">
+                                <i data-lucide="file-terminal" class="w-8 h-8 text-[#777BB4] mb-2"></i>
+                                <span class="text-sm font-medium">PHP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl h-full">
+                        <h3 class="text-lg font-semibold text-white mb-5 pb-4 border-b border-white/10 flex items-center gap-3">
+                            <i data-lucide="server" class="w-5 h-5 text-purple-400"></i> ส่วนหลัง (Backend)
+                        </h3>
+                        <div class="flex flex-col gap-3 sm:gap-4">
+                            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-purple-500/30 transition-colors">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#339933]/10 flex items-center justify-center">
+                                    <i data-lucide="circle-dashed" class="w-6 h-6 text-[#339933]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">Node.js</h4>
+                                    <p class="text-xs text-slate-400">การทำงานแบบ Event-driven</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-purple-500/30 transition-colors">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#777BB4]/10 flex items-center justify-center">
+                                    <i data-lucide="file-terminal" class="w-6 h-6 text-[#777BB4]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">PHP</h4>
+                                    <p class="text-xs text-slate-400">การประมวลผลฝั่งเซิร์ฟเวอร์</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-purple-500/30 transition-colors">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#512BD4]/10 flex items-center justify-center">
+                                    <i data-lucide="box" class="w-6 h-6 text-[#512BD4]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white">C# .NET Core</h4>
+                                    <p class="text-xs text-slate-400">ระบบ Enterprise ขนาดใหญ่</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database -->
+                    <div class="glass-panel p-6 lg:p-8 rounded-2xl h-full md:col-span-2 lg:col-span-1">
+                        <h3 class="text-lg font-semibold text-white mb-5 pb-4 border-b border-white/10 flex items-center gap-3">
+                            <i data-lucide="hard-drive" class="w-5 h-5 text-emerald-400"></i> ฐานข้อมูล (Databases)
+                        </h3>
+                        <div class="space-y-3 sm:space-y-4">
+                            <div class="group flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors">
+                                <span class="font-medium text-slate-300 group-hover:text-white transition-colors">MySQL</span>
+                                <i data-lucide="database-zap" class="w-5 h-5 text-emerald-400/50 group-hover:text-emerald-400 transition-colors"></i>
+                            </div>
+                            <div class="group flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors">
+                                <span class="font-medium text-slate-300 group-hover:text-white transition-colors">SQL Server</span>
+                                <i data-lucide="table-2" class="w-5 h-5 text-emerald-400/50 group-hover:text-emerald-400 transition-colors"></i>
+                            </div>
+                            <div class="group flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors">
+                                <span class="font-medium text-slate-300 group-hover:text-white transition-colors">phpMyAdmin</span>
+                                <i data-lucide="settings-2" class="w-5 h-5 text-emerald-400/50 group-hover:text-emerald-400 transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools & Workflow -->
+        <section id="workflow" class="py-20 lg:py-24 relative overflow-hidden">
+            <div class="container mx-auto px-6">
+                <!-- flex-col-reverse ensures image/panels display above text on mobile -->
+                <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="w-full lg:w-1/2 relative mt-8 lg:mt-0">
+                        <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full"></div>
+                        <div class="glass-panel p-6 lg:p-8 rounded-2xl relative z-10 space-y-6 lg:space-y-8 border-brand-500/20">
+                            <!-- GitHub Workflow Item -->
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-white text-dark-900 flex items-center justify-center self-start">
+                                    <i data-lucide="github" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">จัดการเวอร์ชันด้วย GitHub</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">พัฒนาแบบต่อเนื่อง ตรวจทานโค้ดอย่างเข้มงวด และติดตามการเปลี่ยนแปลงได้เสมอ เรามั่นใจในการทำงานเป็นทีมและลดข้อผิดพลาดก่อนขึ้นระบบ</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Postman Workflow Item -->
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#FF6C37] text-white flex items-center justify-center self-start">
+                                    <i data-lucide="flask-conical" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-2">ทดสอบพลัง API ด้วย Postman</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">ทดสอบ Endpoint แบบอัตโนมัติ สร้าง Mock server และจัดทำเอกสารเพื่อรับประกันการสื่อสารข้อมูลที่แม่นยำ 100%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-1/2 text-center lg:text-left">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-6">ขั้นตอนการทำงาน<br class="hidden lg:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-500">แบบไร้รอยต่อ</span></h2>
+                        <p class="text-slate-400 text-base lg:text-lg mb-8 leading-relaxed">
+                            สถาปัตยกรรมที่ดีต้องมาพร้อมกับเครื่องมือและกระบวนการทำงานที่ยอดเยี่ยม เราประยุกต์ใช้มาตรฐานขั้นสูงในการจัดการ เขียนโค้ด และ Deploy โค้ดอย่างรวดเร็วโดยไม่ทิ้งคุณภาพ
+                        </p>
+                        <ul class="space-y-4 text-slate-300 inline-block text-left w-full sm:w-auto">
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400"><i data-lucide="check" class="w-3 h-3"></i></div>
+                                พัฒนาด้วยกระบวนการแบบ Agile
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400"><i data-lucide="check" class="w-3 h-3"></i></div>
+                                ระบบอัปเดตอัตโนมัติ (CI/CD Pipelines)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400"><i data-lucide="check" class="w-3 h-3"></i></div>
+                                คู่มือและการจัดการเอกสารทางเทคนิค (Documentation)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 lg:py-24 bg-dark-900/50 border-t border-white/5 relative">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto glass-panel p-6 sm:p-8 md:p-12 rounded-3xl relative overflow-hidden">
+                    <!-- Decorative blur -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-500/20 blur-3xl rounded-full"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12 relative z-10">
+                        <div class="text-center md:text-left">
+                            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">มาร่วมสร้างสิ่ง<span class="text-brand-400">พิเศษ</span>ด้วยกัน</h2>
+                            <p class="text-slate-400 mb-8 text-sm lg:text-base">พูดคุยเกี่ยวกับความต้องการของโปรเจกต์คุณ ประเมินราคา หรือเพียงแค่ทักทาย เราพร้อมตอบกลับภายใน 24 ชั่วโมง</p>
+                            
+                            <div class="space-y-4 lg:space-y-6 inline-block text-left">
+                                <div class="flex items-center gap-4 text-slate-300">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full glass-panel flex items-center justify-center text-brand-400">
+                                        <i data-lucide="mail" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm md:text-base">techcoresystems101@gmail.com</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-slate-300">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full glass-panel flex items-center justify-center text-brand-400">
+                                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm md:text-base">ร้อยเอ็ด, ประเทศไทย</span>
+                                </div>
+                            </div>
+                        </div>
+
+                            <!-- Form -->
+                            <form id="contactForm" class="space-y-4">
+                                <!-- Feedback Message Container -->
+                                <div id="formMessage"></div>
+
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-slate-400 mb-1">ชื่อ-นามสกุล</label>
+                                    <input type="text" id="name" name="name" required class="w-full bg-dark-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all font-sans" placeholder="เช่น สมชาย ใจดี">
+                                </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-400 mb-1">อีเมลติดต่อ</label>
+                                <input type="email" id="email" name="email" required class="w-full bg-dark-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all font-sans" placeholder="john@company.com">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-slate-400 mb-1">รายละเอียดโปรเจกต์</label>
+                                <textarea id="message" name="message" rows="4" required class="w-full bg-dark-950/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all resize-none font-sans" placeholder="เล่าให้เราฟังคร่าวๆ เกี่ยวกับระบบที่คุณต้องการ..."></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg shadow-brand-500/25 flex justify-center items-center gap-2 mt-4 disabled:opacity-75 disabled:cursor-not-allowed">
+                                ส่งข้อความ
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 py-8 border-t border-white/5 text-center px-6 mt-auto">
+        <p class="text-slate-500 text-sm flex items-center justify-center gap-1 group cursor-default">
+          <i class="w-4 h-4 text-slate-600 group-hover:text-red-500 transition-colors"></i>&copy;Copyright 2026 TechCore Systems. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-xl', 'bg-dark-900/80');
+            } else {
+                nav.classList.remove('shadow-xl', 'bg-dark-900/80');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form Submit Handler (Fetch to local WAMP PHP script)
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent page reload
+            
+            const btn = document.getElementById('submitBtn');
+            const msgContainer = document.getElementById('formMessage');
+            const originalContent = btn.innerHTML;
+            
+            // Loading State
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> กำลังส่ง...';
+            btn.disabled = true;
+            lucide.createIcons(); // Re-render the new spinner icon
+            msgContainer.innerHTML = ''; 
+
+            try {
+                const formData = new FormData(e.target);
+                
+                // POST to our PHP backend script
+                const response = await fetch('process_form.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Show success message styled with Tailwind
+                    msgContainer.innerHTML = `
+                        <div class="p-4 mb-4 text-sm text-emerald-400 bg-emerald-900/20 rounded-xl border border-emerald-500/30 flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+                            <span>ส่งข้อความสำเร็จ! เราจะติดต่อกลับหาคุณโดยเร็วที่สุด</span>
+                        </div>
+                    `;
+                    e.target.reset(); // clear form
+                } else {
+                    throw new Error(data.message || 'Server responded with an error');
+                }
+            } catch (error) {
+                console.error(error);
+                // Show error message styled with Tailwind
+                msgContainer.innerHTML = `
+                    <div class="p-4 mb-4 text-sm text-red-400 bg-red-900/20 rounded-xl border border-red-500/30 flex items-center gap-2">
+                        <i data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0"></i>
+                        <span>เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้ง หรือติดต่อผ่านอีเมลโดยตรง</span>
+                    </div>
+                `;
+            } finally {
+                // Restore button
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
